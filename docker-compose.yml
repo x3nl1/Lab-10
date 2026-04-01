@@ -1,0 +1,17 @@
+services:
+  go_service:
+    build: ./m_task_api
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/token"]
+      interval: 5s
+      timeout: 2s
+      retries: 5
+
+  python_client:
+    build: ./python_client
+    depends_on:
+      - go_service
+    environment:
+      - BASE_URL=http://go_service:8080
