@@ -4,7 +4,7 @@ services:
     ports:
       - "8080:8080"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/token"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/token"]
       interval: 5s
       timeout: 2s
       retries: 5
